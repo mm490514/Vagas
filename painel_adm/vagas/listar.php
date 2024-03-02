@@ -3,8 +3,18 @@ require_once("../../conexao.php");
 require_once("campos.php");
 @session_start();
 
+$id_empresa = $_SESSION['id_usuario'];
 
-$query = $pdo->query("SELECT * from $pagina order by id desc ");
+$niv_usuario = $_SESSION['nivel_usuario'];
+
+if ($niv_usuario != 'Administrador') {
+	$ocultar_menu = 'd-none';
+} else {
+	$ocultar_menu = 'd-block';
+}
+
+
+$query = $pdo->query("SELECT * from $pagina where id_user_empresa  = '$id_empresa' order by id desc ");
 
 
 echo <<<HTML
@@ -78,7 +88,7 @@ echo <<<HTML
 	<a href="#" onclick="editar('{$id}', '{$cp1}', '{$cp2}', '{$cp3}', '{$cp4}', '{$cp5}', '{$cp6}', '{$cp7}', '{$cp8}', '{$cp9}')" title="Editar Registro">	<i class="bi bi-pencil-square text-primary"></i> </a>
 	<a href="#" onclick="excluir('{$id}' , '{$cp2}')" title="Excluir Registro">	<i class="bi bi-trash text-danger"></i> </a>
 	<a href="#" onclick="mudarStatus('{$id}', '{$ativar}')" title="{$ativo}"><i class="bi {$icone} text-secondary"></i></a>		
-	<a href="#" onclick="candidatos('{$id}')" title="Adicionar Candidato"><i class="bi bi-person-plus-fill"></i></a>	
+	<a href="#" onclick="candidatos('{$id}')" title="Adicionar Candidato"><i class="bi bi-person-fill text-dark"></i></a>	
 
 	</td>
 	</tr>
@@ -127,6 +137,38 @@ function candidatos(id){
 	myModal.show();
 	$('#mensagem').text('');
 }
+
+function candidatos(id_vaga){  
+    $('#id').val(id_vaga);
+    $('#tituloModal').text('Adicionar Candidatos');
+    
+    // Fazer solicitação AJAX para obter candidatos
+    $.ajax({
+        url: 'retorna_candidatos.php',
+        type: 'post',
+        data: {id_vaga: id_vaga},
+        dataType: 'json',
+        success: function(response) {
+
+			var modalBody = $('#modalCandidatos .modal-body'); 
+            
+            modalBody.empty();         
+            
+            $.each(response, function(index, candidato) {
+        		modalBody.append('<a>' + candidato + '</a><br>'); // Adiciona os candidatos ao corpo do modal
+    		});           
+            
+            var myModal = new bootstrap.Modal(document.getElementById('modalCandidatos'), {});
+			myModal.show();
+			$('#mensagem').text('');
+        },
+        error: function(xhr, status, error) {
+            // Lidar com erros de requisição, se houver
+            console.error(xhr.responseText);
+        }
+    });
+}
+
 
 
 

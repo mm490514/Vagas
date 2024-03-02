@@ -44,7 +44,7 @@ require_once("conexao.php");
                         <select class="form-select" aria-label="Default select example" name="nivel" id="nivel" required>
                             <option selected></option>
                             <option value="1">Vagas</option>
-                            <option value="2">Candidatos</option>
+                            <option value="2"></option>
                         </select>
                     </div>
                 </div>

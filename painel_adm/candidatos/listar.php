@@ -3,6 +3,14 @@ require_once("../../conexao.php");
 require_once("campos.php");
 @session_start();
 
+$niv_usuario = $_SESSION['nivel_usuario'];
+
+if ($niv_usuario != 'Administrador') {
+	$ocultar_home = 'display: block;';
+} else {
+	$ocultar_home = 'display: none;';
+}
+
 
 $query = $pdo->query("SELECT * from $pagina order by id desc ");
 
@@ -55,8 +63,8 @@ echo <<<HTML
 	<td>{$cp6}</td>	
 	<td>{$cp7}</td>		
 	<td>
-	<a href="#" onclick="editar('{$id}', '{$cp1}', '{$cp2}', '{$cp3}', '{$cp4}', '{$cp5}', '{$cp6}', '{$cp7}')" title="Editar Registro">	<i class="bi bi-pencil-square text-primary"></i> </a>
-	<a href="#" onclick="excluir('{$id}' , '{$cp1}')" title="Excluir Registro">	<i class="bi bi-trash text-danger"></i> </a>
+	<a href="#" onclick="editar('{$id}', '{$cp1}', '{$cp2}', '{$cp3}', '{$cp4}', '{$cp5}', '{$cp6}', '{$cp7}')" title="Editar Registro" style="$ocultar_home">	<i class="bi bi-pencil-square text-primary"></i> </a>
+	<a href="#" onclick="excluir('{$id}' , '{$cp1}')" title="Excluir Registro" style="$ocultar_home">	<i class="bi bi-trash text-danger"></i> </a>
 	
 
 	</td>

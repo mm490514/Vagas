@@ -14,7 +14,7 @@ if ($niv_usuario != 'Administrador') {
 $query = $pdo->query("SELECT * from usuarios where id = '$id_usuario' ");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $nome_usuario = $res[0]['nome'];
-$email_usuario = $res[0]['email'];
+$email_usuario = $res[0]['login'];
 $senha_usuario = $res[0]['senha'];
 $nivel_usuario = $res[0]['nivel'];
 
@@ -100,7 +100,7 @@ $data_final_mes_ant = date('Y-m-d', strtotime("-1 month", strtotime($data_final_
 						<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPerfil">Editar Dados</a>
 
-							<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalConfig">Editar Configurações</a></li>
+							
 
 							<li>
 								<hr class="dropdown-divider">

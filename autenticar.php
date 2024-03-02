@@ -5,7 +5,10 @@ require_once("conexao.php");
 $login = $_POST['email'];
 $senha = $_POST['password'];
 
+
+
 $query = $pdo->prepare("SELECT * from usuarios where login = :login and senha = :senha ");
+
 $query->bindValue(":login", "$login");
 $query->bindValue(":senha", "$senha");
 $query->execute();

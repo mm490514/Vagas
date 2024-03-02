@@ -1,6 +1,7 @@
 <?php 
 require_once("../../conexao.php");
 require_once("campos.php");
+@session_start();
 
 $cp1 = $_POST[$campo1];
 $cp3 = $_POST[$campo3];
@@ -10,6 +11,7 @@ $cp6 = $_POST[$campo6];
 $cp7 = $_POST[$campo7];
 $cp8 = $_POST[$campo8];
 $cp9 = $_POST[$campo9];
+$cp10 = $_SESSION['id_usuario'];
 
 $cp4 = str_replace(".", "", $cp4);
 $cp4 = str_replace(",", ".", $cp4);
@@ -30,10 +32,10 @@ if($total_reg > 0 and $id_reg != $id){
 
 if($id == ""){
 	$query = $pdo->prepare("INSERT INTO $pagina set cargo = :campo1, situacao = :campo2, nome_empresa = :campo3, salario = :campo4, descricao = :campo5, id_nivel_cargo = :campo6, area = :campo7,
-	localidade = :campo8, id_tipo_contrato = :campo9");	
+	localidade = :campo8, id_tipo_contrato = :campo9, id_user_empresa = :campo10");	
 }else{
 	$query = $pdo->prepare("UPDATE $pagina  set cargo = :campo1, situacao = :campo2, nome_empresa = :campo3, salario = :campo4, descricao = :campo5, id_nivel_cargo = :campo6, area = :campo7,
-	localidade = :campo8, id_tipo_contrato = :campo9 WHERE id = '$id'");	
+	localidade = :campo8, id_tipo_contrato = :campo9, id_user_empresa = :campo10 WHERE id = '$id'");	
 }
 
 $query->bindValue(":campo1", "$cp1");
@@ -45,6 +47,7 @@ $query->bindValue(":campo6", "$cp6");
 $query->bindValue(":campo7", "$cp7");
 $query->bindValue(":campo8", "$cp8");
 $query->bindValue(":campo9", "$cp9");
+$query->bindValue(":campo10", "$cp10");
 
 $query->execute();
 
