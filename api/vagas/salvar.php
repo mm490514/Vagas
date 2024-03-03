@@ -17,8 +17,6 @@ $localidade = @$postjson['localidade'];
 $id_tipo_contrato = @$postjson['id_tipo_contrato'];
 $id_user_empresa = @$postjson['id_user_empresa'];
 
-var_dump($cargo);
-
 $data = date('Y-m-d');
 
 
