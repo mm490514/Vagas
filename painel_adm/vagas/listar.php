@@ -25,6 +25,8 @@ echo <<<HTML
 <table id="example" class="table table-striped table-light table-hover my-4">
 <thead>
 <tr>
+<th></th>	
+<th>ID</th>	
 <th>{$campo1}</th>
 <th>Empresa</th>
 <th >{$campo4}</th>	
@@ -84,7 +86,7 @@ for($i=0; $i < @count($res); $i++){
 			$res5 = $query5->fetchAll(PDO::FETCH_ASSOC);
 			$id_candidato = @$res5[0]['id'];
 
-			$query3 = $pdo->query("SELECT * from candidaturas where id_candidato = $id_candidato and id_vaga = $id");			
+			$query3 = $pdo->query("SELECT * from candidaturas where id_candidato = $id_candidato and id_vaga = $id");				
 			$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
 			$id_candidatura = @$res3[0]['id'];
 	
@@ -105,6 +107,8 @@ for($i=0; $i < @count($res); $i++){
 
 echo <<<HTML
 	<tr class="{$inativa}">
+	<th><input type="checkbox" id="select-all"></th>
+	<td data-id="{$id}">{$id}</td>
 	<td>{$cp1}</td>			
 	<td>{$cp3}</td>	
 	<td>R$ {$cp4}</td>	
@@ -127,7 +131,10 @@ HTML;
 } 
 echo <<<HTML
 </tbody>
+
+
 </table>
+<button onclick="excluirEmMassa()" title="Excluir Selecionados" style="<?= $ocultar_home ?>" class="btn btn-danger">Excluir</button>
 HTML;
 
 ?>
@@ -160,6 +167,37 @@ function editar(id, cp1, cp2, cp3, cp4, cp5, cp6, cp7, cp8, cp9){
 	myModal.show();
 	$('#mensagem').text('');
 }
+
+function excluirEmMassa() {
+	var idsSelecionados = [];
+    $('input[type="checkbox"]:checked').each(function() {
+        idsSelecionados.push($(this).closest('tr').find('td[data-id]').data('id'));
+    });
+
+    if (idsSelecionados.length === 0) {
+        alert('Selecione pelo menos uma linha para excluir.');
+        return;
+    }
+
+	
+
+    if (confirm('Tem certeza de que deseja excluir as linhas selecionadas?')) {
+        $.ajax({
+            url: 'excluir_em_massa.php',
+            type: 'POST',
+            data: { ids: idsSelecionados },
+            success: function(response) {
+                alert('Linhas selecionadas excluídas com sucesso.');   
+				location.reload();             
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+                alert('Ocorreu um erro ao excluir as linhas selecionadas.');
+            }
+        });
+    }
+}
+
 
 function candidatos(id){	
 	$('#id').val(id);
