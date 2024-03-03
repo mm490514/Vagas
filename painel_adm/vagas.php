@@ -5,10 +5,18 @@ $pagina = 'vagas';
 @session_start();
 require_once($pagina."/campos.php");
 
+$niv_usuario = $_SESSION['nivel_usuario'];
+
+$ocultar_home = "";
+
+if ($niv_usuario != 'Administrador') {
+	$ocultar_home = 'display: none;"';
+}
+
 ?>
 
 <div class="col-md-12 my-3">
-	<a href="#" onclick="inserir()" type="button" class="btn btn-dark btn-sm">Nova Vaga</a>
+	<a href="#" onclick="inserir()" type="button" class="btn btn-dark btn-sm" style="<?php echo $ocultar_home; ?>">Nova Vaga</a>
 </div>
 
 <small>

@@ -8,6 +8,7 @@ $query = $pdo->prepare("SELECT cd.*, c.nome as nome from candidaturas cd
 INNER JOIN candidatos c ON (c.id = cd.id_candidato)
 where id_vaga = :id_vaga");
 $query->bindValue(":id_vaga", $id_vaga);
+
 $query->execute();
 $candidaturas = $query->fetchAll(PDO::FETCH_ASSOC);
 

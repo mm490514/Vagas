@@ -4,15 +4,18 @@ require_once("campos.php");
 @session_start();
 
 $niv_usuario = $_SESSION['nivel_usuario'];
+$id_usuario = $_SESSION['id_usuario'];
 
 if ($niv_usuario != 'Administrador') {
 	$ocultar_home = 'display: block;';
+	$query = $pdo->query("SELECT * from $pagina where id_usuario = '$id_usuario' order by id desc ");
 } else {
 	$ocultar_home = 'display: none;';
+	$query = $pdo->query("SELECT * from $pagina order by id desc ");
 }
 
 
-$query = $pdo->query("SELECT * from $pagina order by id desc ");
+
 
 
 echo <<<HTML

@@ -118,7 +118,7 @@ $data_final_mes_ant = date('Y-m-d', strtotime("-1 month", strtotime($data_final_
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item">
-						<a style="<?php echo $ocultar_home ?>" class="nav-link" aria-current="page" <?php echo $ocultar_menu ?> href="index.php?pag=<?php echo $menu1 ?>">Home</a>
+						<a style="display: none" class="nav-link" aria-current="page"  href="index.php?pag=<?php echo $menu1 ?>">Home</a>
 					</li>
 
 					<li class="nav-item">

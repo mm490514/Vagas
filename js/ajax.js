@@ -140,6 +140,40 @@ function mudarStatus(id, ativar){
     });
 }
 
+function candidatar(id_usuario, id_vaga){
+    
+    $.ajax({
+        url: pag + "/candidatar.php",
+        method: 'POST',
+        data: {id_usuario, id_vaga},
+        dataType: "text",
+
+        success: function (mensagem) {
+            if (mensagem.trim() == "Candidatado com Sucesso") {
+                listar();
+            }               
+        },
+
+    });
+}
+
+function descandidatar(id_usuario, id_vaga){
+    
+    $.ajax({
+        url: pag + "/descandidatar.php",
+        method: 'POST',
+        data: {id_usuario, id_vaga},
+        dataType: "text",
+
+        success: function (mensagem) {
+            if (mensagem.trim() == "Cancelado com Sucesso") {
+                listar();
+            }               
+        },
+
+    });
+}
+
 
 
 

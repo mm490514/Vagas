@@ -6,17 +6,28 @@ $pagina = 'candidatos';
 require_once($pagina."/campos.php");
 
 $niv_usuario = $_SESSION['nivel_usuario'];
+$id_usuario = $_SESSION['id_usuario'];
 
-if ($niv_usuario != 'Administrador') {
-	$ocultar_home = 'display: block;';
+$ocultar_home = "";
+
+if ($niv_usuario == 'Administrador') {
+	$ocultar_home = 'display: none;"';
 } else {
-	$ocultar_home = 'display: none;';
+$query3 = $pdo->query("SELECT * from candidatos where id_usuario = '$id_usuario'");
+$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+$id_candidato = @$res3[0]['id'];
+
+if ($id_candidato){
+	$ocultar_home = 'display: none;';	
+} 
 }
+
+
 
 ?>
 
 <div class="col-md-12 my-3">
-	<a href="#" onclick="inserir()" type="button" class="btn btn-dark btn-sm" style="<?php echo $ocultar_home; ?>">Novo Candidato</a>
+	<a href="#" onclick="inserir()" type="button" class="btn btn-dark btn-sm" style="<?php echo $ocultar_home; ?>">Criar Perfil</a>
 </div>
 
 <small>
