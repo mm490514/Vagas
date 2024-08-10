@@ -1,4 +1,4 @@
-# Readme - Sistema de Gerenciamento de Vagas e Candidatos
+# Sistema de Gerenciamento de Vagas e Candidatos
 
 Este é um sistema de gerenciamento de vagas e candidatos desenvolvido em PHP. O sistema permite que usuários autenticados visualizem vagas disponíveis, candidatos inscritos e realizem a edição de seus dados pessoais. Além disso, o sistema também possui uma API JSON para realizar operações de busca, exclusão, listagem, listagem por ID e salvamento de vagas e candidatos.
 
